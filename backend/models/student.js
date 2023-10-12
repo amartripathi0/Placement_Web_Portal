@@ -8,7 +8,8 @@ const studentSchema = new mongoose.Schema({
         mothersName : {type : String ,  required: true},
         emailID : {type : String ,  required: true , unique : true},
         password:{type : String ,  required: true},
-        phone : {type : Number , required:true , unique : true}
+        phone : {type : Number , required:true , unique : true},
+        rollNumber : {type : Number , required:true , unique : true}
     },
     
     educationalDetails: {  

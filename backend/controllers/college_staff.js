@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Staff  = require('../models/college_staff')
+const Student  = require('../models/student')
 const bcrypt = require('bcrypt')
 const handleStaffSignUP = async (req , res) => {
         let data  =req.body
@@ -26,14 +27,14 @@ const handleStaffSignUP = async (req , res) => {
 
 async function handleStaffSignIn(req , res){
             const {emailID , password} = req.body
-            const user = await Staff.findOne({"personalDetail.emailID" : emailID})
+            const staff = await Staff.findOne({"personalDetail.emailID" : emailID})
             console.log(password);  
-            if(user){
-                const passHash = user.personalDetail.password;
+            if(staff){
+                const passHash = staff.personalDetail.password;
                 const isValid = await bcrypt.compare(password , passHash)
                 console.log(isValid);  
                 if(isValid){
-                    res.json({msg : "usr exists"})
+                    res.json({msg : "Sigin Successfull"})
                     return
                 }
                 else{
@@ -42,13 +43,21 @@ async function handleStaffSignIn(req , res){
                 }
             }
             else{
-                res.json({msg : "usr dsn't exists "})
+                res.json({msg : "Staff doesn't exists "})
                 return
             }
            
 }  
- 
+
+async function handleGetAllStudents(req , res){
+    const students = await Student.find()
+    if(!students){
+        res.json({msg : "No Student Exist"})
+        return
+    }
+    res.json({students : students})
+}
 
 module.exports = {
-    handleStaffSignUP,handleStaffSignIn
+    handleStaffSignUP,handleStaffSignIn , handleGetAllStudents
 }   
