@@ -1,8 +1,9 @@
 const express = require('express')
 const router =  express.Router()
-const {handleStudentSignUP} = require('../controllers/student')
+const {handleStudentSignUP , handleStudentSignIN} = require('../controllers/student')
 
 router
 .post("/signup" , handleStudentSignUP)
+.post('/signin' , handleStudentSignIN)
 
 module.exports = router;
