@@ -11,7 +11,7 @@ const Body = () => {
 
                     Explore job openings, build your resume, and network with professionals. For employers, find exceptional talent to drive your organization forward.
 
-                    Unlock your potential with Placement Portal!</p>
+                    Unlock your potential with Placement Portal!!</p>
                 <button className='mt-6 ml-24 pl-9 h-12 text-white bg-cyan-500 hover:bg-cyan-600  pr-9 rounded-full text-2xl'>MORE DETAILS . . . .</button>
 
             </div>
