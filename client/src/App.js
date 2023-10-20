@@ -6,11 +6,13 @@ import About from './Components/About'
 import Page from './Components/Page'
 import Contact from './Components/Contact'
 import Support from './Components/Support'
-
+import SignUp from './pages/SignUp'
+import SignUpCard from './pages/SignUpCard'
+import SignUpStudent from './pages/SignUpStudent'
 function App() {
 
   return (
-    <div className='fixed w-full '>
+    <div className=' h-screen w-screen '>
       <Header />
       <Outlet />
     </div>
@@ -40,6 +42,14 @@ export const AppRouter = createBrowserRouter([
     {
       path: "/support",
       element: <Support />
+    },
+    {
+      path: "/signup",
+      element: <SignUpCard/>
+    },
+    {
+      path: "/signup/student",
+      element: <SignUpStudent/>
     },
     ]
   }
