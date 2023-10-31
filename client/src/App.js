@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Components/Header'
-import Body from './Components/Body'
+import Body from './Components/Home'
 import { Outlet, createBrowserRouter } from 'react-router-dom'
-import About from './Components/About'
-import Page from './Components/Page'
-import Contact from './Components/Contact'
-import Support from './Components/Support'
-import SignUp from './pages/SignUp'
-import SignUpCard from './pages/SignUpCard'
-import SignUpStudent from './pages/SignUpStudent'
+import About from './pages/About'
+import Page from './pages/Page'
+import Contact from './pages/Contact'
+import Support from './pages/Support'
+import SignUp from './pages/MainSignUp'
+import SignUpCard from './Components/SignUpCard'
+import SignUpStudent from './pages/student/SignUpStudent'
+import MainSignUp from './pages/MainSignUp'
 function App() {
 
   return (
@@ -45,7 +46,7 @@ export const AppRouter = createBrowserRouter([
     },
     {
       path: "/signup",
-      element: <SignUpCard/>
+      element: <MainSignUp/>
     },
     {
       path: "/signup/student",
