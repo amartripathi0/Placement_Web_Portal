@@ -10,6 +10,7 @@ import SignUp from './pages/MainSignUp'
 import SignUpCard from './Components/SignUpCard'
 import SignUpStudent from './pages/student/SignUpStudent'
 import MainSignUp from './pages/MainSignUp'
+import MainLogin from './pages/MainLogin'
 function App() {
 
   return (
@@ -47,6 +48,10 @@ export const AppRouter = createBrowserRouter([
     {
       path: "/signup",
       element: <MainSignUp/>
+    },
+    {
+      path: "/login",
+      element: <MainLogin/>
     },
     {
       path: "/signup/student",
