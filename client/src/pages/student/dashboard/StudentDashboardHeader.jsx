@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingPage from '../../LoadingPage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RESET_GLOBAL } from '../../../redux/features/common/globalSlice';
 
 const StudentDashboardHeader = () => {
   const dispatch = useDispatch()
@@ -14,13 +15,14 @@ const StudentDashboardHeader = () => {
   const { isLoading, isLoggedIn, isError, isSuccess, message , statusCode } = useSelector((state) => state.studentAuth );
  
    function handleStudentSignout(){
-    console.log("d");
      dispatch(signout())
+     dispatch(RESET())
+     dispatch(RESET_GLOBAL())
   }
 
   useEffect(( ) => {
     if(isSuccess && !isLoggedIn){
-      navigate('/')
+      navigate('/signin')
       toast.success("Signed Out successfully",{
         position:toast.POSITION.TOP_RIGHT
       })

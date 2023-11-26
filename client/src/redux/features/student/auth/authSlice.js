@@ -9,7 +9,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
-  statusCode : ""
+  statusCode : "",
 };
 
 export const signup = createAsyncThunk(
@@ -87,6 +87,7 @@ const authSlice = createSlice({
       state.message = "";
       state.statusCode = ""
       state.students = []
+      state.student = null
     },
   },
   extraReducers : (builder) => {
@@ -123,7 +124,6 @@ const authSlice = createSlice({
       // state.students.push({...action.payload})
       state.isLoggedIn = true;
       state.isSuccess = true
-      console.log(action.payload);
       // state.message = action.payload;
     })
     .addCase(signin.rejected , (state , action) => {

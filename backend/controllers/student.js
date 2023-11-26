@@ -68,6 +68,7 @@ const handleStudentSignIN = asyncHandler(async (req, res) => {
   try {
     
   const { emailID, password } = req.body;
+  console.log(emailID);
   if (!emailID || !password) {
     res.status(401);
     throw new Error("Please fill up all the required fileds");
@@ -75,7 +76,7 @@ const handleStudentSignIN = asyncHandler(async (req, res) => {
 
   const student = await Student.findOne({ "personalDetail.emailID": emailID });
   if (student) {
-    console.log(student.personalDetail.password ,  password);
+    // console.log(student.personalDetail.password ,  password);
   
     let isValdid = await bcrypt.compare(
       password,
@@ -92,7 +93,7 @@ const handleStudentSignIN = asyncHandler(async (req, res) => {
         sameSite: "none",
         secure: true,
       });
-
+      
       res.cookie("userType"  , usrTyp , {
         path: "/",
         httpOnly: true,

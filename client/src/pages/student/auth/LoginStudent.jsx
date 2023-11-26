@@ -8,6 +8,8 @@ import { signin , RESET  } from '../../../redux/features/student/auth/authSlice'
 import LoadingPage from "../../LoadingPage";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {SET_GLOBAL} from '../../../redux/features/common/globalSlice'
+
 const LoginStudent = () => {
   const form = useForm();
   const {
@@ -19,6 +21,7 @@ const LoginStudent = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const {isLoading,isLoggedIn , isError,isSuccess,message,statusCode} = useSelector(state => state.studentAuth)
+  
   const loginStudent = async(data , event) => {
     await(dispatch(signin(data)))
   }
@@ -26,7 +29,8 @@ const LoginStudent = () => {
     if(isLoggedIn && isSuccess){
       toast.success("Signed In successfully!" , {
         position : toast.POSITION.TOP_RIGHT
-      })
+      });
+      dispatch(SET_GLOBAL("STUDENT"))
       navigate('/student')
     }
     if(isError){

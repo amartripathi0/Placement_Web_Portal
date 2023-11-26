@@ -39,12 +39,11 @@ app.get('/' , asyncHandler( async = ( req , res) => {
         const userType = req.cookies.userType
         
         if(token){
-            res.status(200)
-            res.send(userType)
+            res.status(200).json({message : true , userType})
         }
         else{
-            res.status(200)
-            res.send(false)
+            res.status(200).json({message : false , userType : ''})
+
         }
         
     }

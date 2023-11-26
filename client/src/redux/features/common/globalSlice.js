@@ -17,7 +17,7 @@ export const getLoginStatus = createAsyncThunk(
 
 const initialState = {
   isLoggedin: false,
-  message: "",
+  userType: "",
   isLoading: false,
 };
 export const globalSlice = createSlice({
@@ -25,10 +25,15 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     RESET_GLOBAL(state) {
-      state.message = "";
+      state.userType = "";
       state.isLoading = false;
       state.isLoggedin = false;
     },
+    SET_GLOBAL(state , action) {
+      state.userType = action.payload;
+      state.isLoading = false;
+      state.isLoggedin = true;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -37,20 +42,21 @@ export const globalSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getLoginStatus.fulfilled, (state, action) => {
-        state.isLoggedin = true;
+        state.isLoggedin = action.payload.message;
         state.isLoading = false;
-        state.message = action.payload;
+        state.userType = action.payload.userType;
+        
       })
       .addCase(getLoginStatus.rejected, (state, action) => {
         state.isLoggedin = false;
         // console.log("Action" , action);
-        state.message = action.payload;
+        state.userType = action.payload;
         state.isLoading = false;
       });
   },
 });
 
-export const {RESET} = globalSlice.actions;
+export const {RESET_GLOBAL , SET_GLOBAL} = globalSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 

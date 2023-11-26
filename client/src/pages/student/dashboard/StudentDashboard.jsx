@@ -9,33 +9,39 @@ import { FaRegClock } from "react-icons/fa";
 import LoadingPage from '../../LoadingPage'
 
 import {useDispatch , useSelector} from  'react-redux'
-import { RESET as GLOBAL_RESET } from '../../../redux/features/common/globalSlice';
+import { RESET_GLOBAL , SET_GLOBAL, getLoginStatus} from '../../../redux/features/common/globalSlice';
 import { RESET , getUserData} from '../../../redux/features/student/auth/authSlice'
 import { toast } from 'react-toastify'
-import { getLoginStatus } from '../../../redux/features/common/globalSlice';
 
 
 function StudentDashboard() {
   const {isLoading , isError , isSuccess , isLoggedIn ,message , student } = useSelector(state => state.studentAuth)
-  const globalAuth = useSelector(state => state.globalAuth)
-
+  const globalAuth = useSelector(state =>state.globalAuth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-
   useEffect(() => {
-    dispatch(getLoginStatus())
+    if(isLoggedIn === false){
+      toast.error("Session Expired , Please Login Again",{
+    position : toast.POSITION.TOP_RIGHT
+     }) 
+      navigate('/signin')
+    }
+    else{
+      dispatch(getUserData())
+  console.log(student);
 
-    dispatch(GLOBAL_RESET())
-    
+  dispatch(RESET())
+    }
+
   } , [])
 
-// if(isLoggedIn && isSuccess){
-//   console.log("D");
-//   toast.success(`Welcome ${student.personalDetail.firstName + " " + student.personalDetail.lastName}`,{
-//     position : toast.POSITION.TOP_RIGHT
-//   })
-// }
+
+  // console.log("D");
+  // toast.success(`Welcome ${student.personalDetail.firstName + " " + student.personalDetail.lastName}`,{
+  //   position : toast.POSITION.TOP_RIGHT
+  // })
+
 
   return (
     <div className={` flex w-screen h-screen  ${isLoading && " opacity-50 "}`}>
