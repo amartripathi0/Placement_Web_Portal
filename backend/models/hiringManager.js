@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const HiringManagerSchema = new Schema({
-    personalDetal : {
+const RecruiterSchema = new Schema({
+    personalDetail : {
         firstName: {  type: String,required: true  },
         lastName: {  type: String,required: true  },
         emailID : {type : String ,  required: true , unique : true},
@@ -19,7 +19,10 @@ const HiringManagerSchema = new Schema({
         type: String,
         default: 'Hiring Manager'
     },
-    
+    role : {
+        type : String,
+        enum : ["allowed , suspended"]
+    },
     vacancies: [{
         role: String,
         description: String,
@@ -32,7 +35,12 @@ const HiringManagerSchema = new Schema({
             default: 'Open'
         }
     }],
-})
-const HiringManager = mongoose.model('HiringManager', HiringManagerSchema);
 
-module.exports = HiringManager;
+    studentsStatistics :  [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Student"
+    }]
+} , {timestamps : true})
+const Recruiter = mongoose.model('Recruiter', RecruiterSchema);
+
+module.exports = Recruiter;
