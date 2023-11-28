@@ -68,11 +68,18 @@ function StudentDashboard() {
     }
   }, [isLoggedIn]);
 
+  const [sidemenuExpanded , setsDdemenuExpanded ] = useState(true)
+
+  function sidemenuState(val){
+    setsDdemenuExpanded(!val)
+    // console.log(sidemenuExpanded);
+  }
   return (
-    <div className={` flex w-screen h-screen  ${(isLoading || studentUtil.isLoading) && " opacity-50 "}`}>
+    <div className={`relative flex w-screen h-screen  ${(isLoading || studentUtil.isLoading) && " opacity-50 "}`}>
       {(isLoading || studentUtil.isLoading) && <LoadingPage height="screen" width="screen" />}
       <div>
         <Sidemenu
+          sidemenuState = {sidemenuState}
           emailID={student?.personalDetail.emailID}
           firstName={student?.personalDetail.firstName}
           lastName={student?.personalDetail.lastName}
@@ -88,8 +95,8 @@ function StudentDashboard() {
           <SidebarItem icon={<FaRegClock />} text="Interview" active />
         </Sidemenu>
       </div>
-
-      <div className="flex flex-col gap-30 w-full">
+ 
+      <div className={`flex flex-col  ${sidemenuExpanded ? "w-[85%]" : "w-[97%]"} absolute right-0 top-0 h-screen`}>
         {/* <StudentSidemenu/> */}
         <StudentDashboardHeader />
         <Outlet />

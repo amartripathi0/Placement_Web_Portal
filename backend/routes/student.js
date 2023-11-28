@@ -9,6 +9,6 @@ router
 .post('/signout', handleStudentSignOUT)
 .put('/updateProfileDetail' , isSignedIn("Student") , handleStudentProfileUpdate)
 .get('/getUserData' , isSignedIn("Student") , handleGetUserData)
-.post('/uploadResume' , uploadPdf.single("resume") , handleUploadResume)
+.post('/uploadResume' ,isSignedIn("Student") ,  uploadPdf.single("resume") , handleUploadResume)
 .post('/uploadProfilePicture' , isSignedIn("Student") ,  uploadImg.single("profilePicture") , handleUploadProfilePicture)
 module.exports = router; 

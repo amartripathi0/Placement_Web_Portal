@@ -4,12 +4,12 @@ import { NavLink } from "react-router-dom";
 
 const SidebarContext = createContext();
 //coped web code
-const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) => {
-  console.log(profileImgLink);
+const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink , sidemenuState}) => {
+  // console.log(profileImgLink);
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <aside className={`h-screen bg-red-400 ${expanded ? " w-72" : "w-20 gap-10"} `}>
+    <aside className={`h-full fixed top-0 left-0 bg-red-400 ${expanded ? "w-[15%]" : "w-20 gap-10"} `}>
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
         <NavLink to="/">
@@ -27,7 +27,10 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
           </div>
           </NavLink>
           <button
-            onClick={() => setExpanded((curr) => !curr)}
+            onClick={() => {
+              setExpanded((curr) => !curr)
+              sidemenuState(expanded)
+            }}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}

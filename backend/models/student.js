@@ -21,9 +21,9 @@ const studentSchema = new mongoose.Schema({
     yearOfPassing: { type: Number , default : 0}, 
   },
 
-  resume : {
-    type : { type: String , default : ""},
-  },
+  resume : 
+    { type: String , default : ""}
+  ,
   role : {
     type : String,
     enum : ["Allowed" , "Suspended"],

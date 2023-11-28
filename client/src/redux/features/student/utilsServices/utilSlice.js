@@ -21,6 +21,17 @@ export const uploadProfilePicture = createAsyncThunk(
         }
     }
 )
+export const uploadResume = createAsyncThunk(
+    "util/uploadResume" , 
+    async( data , thunkAPI) => {
+        try {
+            const response = await utilService.uploadResume(data)
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
 
 const utilSlice = createSlice({
     name : "studentUtil",
@@ -49,6 +60,22 @@ const utilSlice = createSlice({
             state.isLoading = false
             state.isSuccess= false
             state.message= action.payload
+        })
+
+        builder.addCase(uploadResume.pending , (state,action) => {
+            state.isLoading = true
+        })
+        builder.addCase(uploadResume.fulfilled , (state,action) => {
+            state.isLoading = false
+            state.isSuccess= true
+            state.message= action.payload.message
+        })
+        builder.addCase(uploadResume.rejected , (state,action) => {
+
+
+            state.isLoading = false
+            state.isSuccess= false
+            state.message= action.payload.message
         })
    }
 

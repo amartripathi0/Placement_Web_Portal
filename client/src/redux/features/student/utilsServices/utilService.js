@@ -10,9 +10,19 @@ const uploadProfilePicture = async(data) => {
       }})
     return response.data
 }
+const uploadResume = async(data) => {
+    // console.log(data);
+    const response = await axios.post(API_URL + "uploadResume" , data ,  {headers: {
+        "Content-Type": "multipart/form-data"
+      }})
+    return response.data
+}
+
+
 
 const utilService = {
-    uploadProfilePicture
+    uploadProfilePicture,
+    uploadResume
 } 
 
 export default utilService

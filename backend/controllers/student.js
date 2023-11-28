@@ -214,20 +214,40 @@ const handleGetUserData = asyncHandler(async (req, res) => {
  
 const handleUploadResume = asyncHandler(async (req, res) => {
   try{
-  const upload = await uploadToCloudinaryModule.cloudinary.uploader.upload(
-    req.file.path,
-    { folder: "Placement_Web_Portal/student/resume", resource_type: "image" }
-  );
-  const hey = await uploadToCloudinaryModule.cloudinary.image(req.file.path, {
-    transformation: [{ page: 1 }],
-  });
+    if(!req.file){
+      res.status(401)
+      throw new Error("Please upload a valid file.") 
+    }
+    else if(req.file.size > 50000000){
+      res.status(401)
+      throw new Error("Please upload file of size less than 5 MB") 
+    }
+    else{
+      const upload = await uploadToCloudinaryModule.cloudinary.uploader.upload(
+        req.file.path,
+        { folder: "Placement_Web_Portal/student/resume", resource_type: "image" }
+        );
 
-  const fname = req.body;
+        if(upload){
+          const user =  await Student.findById(req.user.id)
+          const updated = await Student.updateOne({_id : req.user.id} , {$set : {"resume" :  upload.secure_url}})
+          // console.log(upload);
 
-  if (!fname || !filename) {
-    res.status(401).json({ status: 401, message: "fill all the data" });
-  }
+          if(updated.modifiedCount === 1){
+              res.status(201).json({message : "Resume uploaded successfully"})
+          } 
+          else{
+            res.status(500)
+          throw new Error("Internal Server Error") 
+          }
+        }
+        else{
+          res.status(500)
+          throw new Error("Internal Server Error")  
+        } 
+    } 
 } catch (error) {
+  console.log(error);
   res.status(500)
   throw new Error("Internal Server Error")
 }
