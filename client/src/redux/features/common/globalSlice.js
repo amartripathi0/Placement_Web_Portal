@@ -19,6 +19,8 @@ const initialState = {
   isLoggedin: false,
   userType: "",
   isLoading: false,
+  isSuccess : false
+
 };
 export const globalSlice = createSlice({
   name: "globalAuth",
@@ -28,6 +30,7 @@ export const globalSlice = createSlice({
       state.userType = "";
       state.isLoading = false;
       state.isLoggedin = false;
+      state.isSuccess = false;
     },
     SET_GLOBAL(state , action) {
       state.userType = action.payload;
@@ -38,20 +41,22 @@ export const globalSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getLoginStatus.pending, (state, action) => {
-        state.isLoggedin = false;
         state.isLoading = true;
       })
       .addCase(getLoginStatus.fulfilled, (state, action) => {
         state.isLoggedin = action.payload.message;
         state.isLoading = false;
         state.userType = action.payload.userType;
-        
+        state.isSuccess = true;
+
       })
       .addCase(getLoginStatus.rejected, (state, action) => {
         state.isLoggedin = false;
         // console.log("Action" , action);
         state.userType = action.payload;
         state.isLoading = false;
+        state.isSuccess = true;
+
       });
   },
 });

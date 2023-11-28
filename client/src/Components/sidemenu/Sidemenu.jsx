@@ -1,4 +1,4 @@
-import { useState, useContext, createContext } from "react";
+import { useState, useContext,useEffect, createContext } from "react";
 import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -6,17 +6,23 @@ const SidebarContext = createContext();
 //coped web code
 const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) => {
   const [expanded, setExpanded] = useState(true);
+
   return (
-    <aside className={`h-screen bg-red-400 ${expanded ? " w-72" : "w-20"} `}>
+    <aside className={`h-screen bg-red-400 ${expanded ? " w-72" : "w-20 gap-10"} `}>
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
+          <div   className={`overflow-hidden transition-all  rounded-md ${
+              expanded ? "w-20 h-20" : "w-0 h-20 opacity-0"
+            }`}>
           <img
-            src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
+            src={profileImgLink}
+            className={`overflow-hidden transition-ease  object-cover h-full w-full rounded-md ${
+              expanded ? "w-full" : "w-0  opacity-0"
             }`}
+       
             alt=""
           />
+          </div>
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
@@ -31,7 +37,7 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
 
         <div className="border-t flex p-3">
           <img
-            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
+            src={profileImgLink}
             alt=""
             className="w-10 h-10 rounded-md"
           />

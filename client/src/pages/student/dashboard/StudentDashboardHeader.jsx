@@ -16,19 +16,15 @@ const StudentDashboardHeader = () => {
  
    function handleStudentSignout(){
      dispatch(signout())
+
      dispatch(RESET())
      dispatch(RESET_GLOBAL())
-  }
 
-  useEffect(( ) => {
-    if(isSuccess && !isLoggedIn){
-      navigate('/signin')
-      toast.success("Signed Out successfully",{
-        position:toast.POSITION.TOP_RIGHT
-      })
-    }
-    dispatch(RESET())
-  } , [isLoggedIn , isSuccess , navigate])
+     toast.success("Signed Out successfully",{
+      position:toast.POSITION.TOP_RIGHT
+    })
+     navigate('/signin')
+  }
   return (
     <div className={`h-16 justify-between  border-slate-400 border-b-2 
     flex items-center px-10 z-40 bg-slate-50 ${isLoading && " opacity-50 "}`} >
