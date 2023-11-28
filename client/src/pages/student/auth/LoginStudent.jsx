@@ -34,6 +34,7 @@ const LoginStudent = () => {
       navigate('/student')
     }
     if(isError){
+      console.log(message);
       toast.error(message ,{
         position : toast.POSITION.TOP_RIGHT
       })

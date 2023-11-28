@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 const SidebarContext = createContext();
 //coped web code
 const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) => {
+  console.log(profileImgLink);
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -15,10 +16,8 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
           <div   className={`overflow-hidden transition-all  rounded-md ${
               expanded ? "w-20 h-20" : "w-0 h-20 opacity-0"
             }`}>
-            
-           
           <img
-            src={profileImgLink}
+            src={profileImgLink ? profileImgLink : "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
             className={`overflow-hidden transition-ease  object-cover h-full w-full rounded-md ${
               expanded ? "w-full" : "w-0  opacity-0"
             }`}
@@ -39,11 +38,11 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
           <ul className="flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="border-t flex p-3">
+        <div className="border-t flex p-3 ">
           <img
-            src={profileImgLink}
+            src={profileImgLink ? profileImgLink : "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
             alt=""
-            className="w-10 h-10 rounded-md"
+            className="w-12 h-12 rounded-md"
           />
           <div
             className={`

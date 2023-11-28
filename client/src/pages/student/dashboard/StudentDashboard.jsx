@@ -18,11 +18,14 @@ import {
   RESET,
   getUserData,
 } from "../../../redux/features/student/auth/authSlice";
+
+
 import { toast } from "react-toastify";
 
 function StudentDashboard() {
   const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
     useSelector((state) => state.studentAuth);
+    const studentUtil = useSelector((state) => state.studentUtils);
   const { isLoggedin } = useSelector((state) => state.globalAuth);
   const globalAuth = useSelector((state) => state.globalAuth);
   const dispatch = useDispatch();
@@ -66,8 +69,8 @@ function StudentDashboard() {
   }, [isLoggedIn]);
 
   return (
-    <div className={` flex w-screen h-screen  ${isLoading && " opacity-50 "}`}>
-      {isLoading && <LoadingPage height="screen" width="screen" />}
+    <div className={` flex w-screen h-screen  ${(isLoading || studentUtil.isLoading) && " opacity-50 "}`}>
+      {(isLoading || studentUtil.isLoading) && <LoadingPage height="screen" width="screen" />}
       <div>
         <Sidemenu
           emailID={student?.personalDetail.emailID}

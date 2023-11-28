@@ -77,7 +77,7 @@ const handleStudentSignUP = asyncHandler(async (req, res) => {
   res.status(500)
   throw new Error("Internal Server Error")
 }
-});
+}); 
 
 const handleStudentSignIN = asyncHandler(async (req, res) => {
   try {
@@ -118,15 +118,13 @@ const handleStudentSignIN = asyncHandler(async (req, res) => {
       } )
       res.status(201).json({ message: "Login Successfull" });
     } else {
-
-      res.status(401);
-      throw new Error("Invalid EmailID or Password");
+      res.status(401).json({message : "Invalid EmailID or Password."}); 
     }
   } else {
-    res.status(403);
-    throw new Error("Student doesn't exists");
+    res.status(403).json({message : "Student doesn't exists."}); 
   }
 } catch (error) {
+  console.log(error);
     res.status(500)
     throw new Error("Internal Server Error")
 }

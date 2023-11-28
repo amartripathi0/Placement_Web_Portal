@@ -32,7 +32,7 @@ connectToMongoDB(dbURL)
 })
 .catch(() => console.log("DB Connection Failed"))
 
-// routes
+// routes 
 app.get('/' , asyncHandler( async = ( req , res) => {
     try{
         const token = req.cookies.token
