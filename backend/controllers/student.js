@@ -5,6 +5,9 @@ const asyncHandler = require("express-async-handler");
 const { generateToken } = require("../utils/index");
 const uploadToCloudinaryModule = require("../utils/index");
 const handleStudentSignUP = asyncHandler(async (req, res) => {
+  try {
+    
+
   //get credential from body
   // First Name , Last Name , Email , phnono password confirm pass
   const { emailID, firstName, lastName, phone, password, cpass } = req.body;
@@ -44,8 +47,10 @@ const handleStudentSignUP = asyncHandler(async (req, res) => {
       personalDetail: { emailID, firstName, lastName, phone, password: pass },
     });
 
+    
     if (student) {
-      const token = generateToken(student._id.toString());
+      const usrTyp = "STUDENT"
+      const token = generateToken(student._id.toString(), usrTyp);
 
       res.cookie("token", token, {
         path: "/",
@@ -55,13 +60,23 @@ const handleStudentSignUP = asyncHandler(async (req, res) => {
         secure: true,
         userType : "student"
       });
-
+      res.cookie("userType"  , usrTyp , {
+        path: "/",
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 86400), // 1 day
+        sameSite: "none",
+        secure: true,
+      } )
       res.status(201).json({ emailID, firstName, lastName, phone });
     } else {
       res.status(403);
       throw new Error("Invalid user data");
     }
   }
+} catch (error) {
+  res.status(500)
+  throw new Error("Internal Server Error")
+}
 });
 
 const handleStudentSignIN = asyncHandler(async (req, res) => {
@@ -119,8 +134,14 @@ const handleStudentSignIN = asyncHandler(async (req, res) => {
 
 const handleStudentSignOUT = asyncHandler(async (req, res) => {
   try {
-
   res.cookie("token", "", {
+    path: "/",
+    httpOnly: true,
+    expires: new Date(0), // 1 day
+    sameSite: "none",
+    secure: true,
+  });
+  res.cookie("userType", "", {
     path: "/",
     httpOnly: true,
     expires: new Date(0), // 1 day
@@ -137,6 +158,9 @@ const handleStudentSignOUT = asyncHandler(async (req, res) => {
 const handleStudentProfileUpdate = asyncHandler(async (req, res) => {
   try{
     const data = req.body
+    
+    const dataType = data.typ
+    const dataVal = data.value
     const personalDetail = req.user.personalDetail;
     if(!data){
         res.status(401);
@@ -146,9 +170,14 @@ const handleStudentProfileUpdate = asyncHandler(async (req, res) => {
     else{
         // const user = await Student.updateOne({_id : req.user.id} , {$set : {"personalDetail" : data}})
         const user = await Student.findById(req.user.id);
-        const userUpdate = await Student.updateOne({_id : req.user.id} , {$set : {"personalDetail" : {...personalDetail ,password : user.personalDetail.password , ...data}}})
+        console.log("[er" ,{...personalDetail ,password : user.personalDetail.password , ...dataVal} );
 
-        console.log(userUpdate); 
+        if(dataType === "personalDetail"){
+        await Student.updateOne({_id : req.user.id} , {$set : {"personalDetail" : {...personalDetail ,password : user.personalDetail.password , ...dataVal}}})
+        }
+        else if(dataType === "educationalDetails"){
+           await Student.updateOne({_id : req.user.id} , {$set : {"educationalDetails" : dataVal}})
+        }
         // const user = await Student.findOneAndUpdate({_id : req.user.id} , {$set : {"personalDetail" : {...personalDetail , ...data}}}
         // , {returnDocument : "after"})
         
@@ -159,9 +188,10 @@ const handleStudentProfileUpdate = asyncHandler(async (req, res) => {
             res.status(401);
             throw new Error("Details Update Failed");
         }
-
     }
   } catch (error) {
+    console.log(error);
+
     res.status(500)
     throw new Error("Internal Server Error")
   }
@@ -204,6 +234,46 @@ const handleUploadResume = asyncHandler(async (req, res) => {
   throw new Error("Internal Server Error")
 }
 });
+const handleUploadProfilePicture = asyncHandler(async (req, res) => {
+  try{
+    if(!req.file){
+      res.status(401)
+      throw new Error("Please upload a valid image.") 
+    }
+    else if(req.file.size > 10000000){
+      res.status(401)
+      throw new Error("Please upload file of size less than 1 MB") 
+    }
+    else{
+      const upload = await uploadToCloudinaryModule.cloudinary.uploader.upload(
+        req.file.path,
+        { folder: "Placement_Web_Portal/student/profile_photo", resource_type: "image", public_id : "profilePic"
+      }
+      ); 
+      if(upload){
+        const personalDetail = req.user.personalDetail;
+        const user =  await Student.findById(req.user.id)
+        const updated = await Student.updateOne({_id : req.user.id} , {$set : {"personalDetail" : {...personalDetail , password : user.personalDetail.password , profilePicture : upload.secure_url}}})
+        
+        if(updated.modifiedCount === 1){
+            res.status(201).json({message : "Profile picture updated successfully"})
+        }
+        else{
+          res.status(500)
+        throw new Error("Internal Server Error") 
+        }
+  }
+      else{
+        res.status(500)
+        throw new Error("Internal Server Error") 
+      } 
+    } 
+} catch (error) {
+  console.log(error);
+  res.status(500)
+  throw new Error("Internal Server Error") 
+}
+});
 
 module.exports = {
   handleStudentSignUP,
@@ -212,4 +282,5 @@ module.exports = {
   handleStudentProfileUpdate,
   handleGetUserData,
   handleUploadResume,
+  handleUploadProfilePicture
 };

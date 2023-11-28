@@ -26,17 +26,14 @@ const getUserData = async() => {
     const response = await axios.get(API_URL + "getUserData" )
     return response.data
 }
-const getLoginStatus = async() => {
-    const response = await axios.get(API_URL + "getUserData" )
-    return response.data
-}
+
 
 const authService = {
     signin,
     signup,
     signout,
     updateProfileDetail,
-    getUserData
+    getUserData,
 }
 
 export default authService

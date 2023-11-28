@@ -89,6 +89,7 @@ const authSlice = createSlice({
       state.students = []
       state.student = null
     },
+    // SET()
   },
   extraReducers : (builder) => {
     builder

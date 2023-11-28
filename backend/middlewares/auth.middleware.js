@@ -16,9 +16,8 @@ const isSignedIn = (userType) =>
           throw new Error("Unauthorized User,Please Login");
         } else {
           const userId = documentObjOfUser.id;
-          let user;
           if (userType === "Student") {
-            user = await Student.findById(userId).select(
+            user = await Student.findById(userId).select( 
               "-personalDetail.password"
             );
           } else if (userType === "Staff") {
@@ -30,8 +29,6 @@ const isSignedIn = (userType) =>
               "-personalDetail.password"
             );
           }
-        //   console.log(user);
-
           if (!user) {
             res.status(401);
             throw new Error("Unauthorized User,Please Login");

@@ -12,6 +12,7 @@ const InputField = ({
       onChange={onChange}
       className={`${xtraStyle} border-black border-2 h-12  font-semibold rounded-md pl-3 w-96`}
       {...validationObj}
+     
       />
 
     <p className='text-red-500  font-medium text-base'> {error}</p>

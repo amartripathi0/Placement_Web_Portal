@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { FaSave } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const InputWithEdit = ({type,  placeholder , validationObj , error , value }) => {
   const [showEdit, setShowEdit] = useState(false);
@@ -18,7 +19,7 @@ const InputWithEdit = ({type,  placeholder , validationObj , error , value }) =>
       placeholder={placeholder}
       className="w-96 h-full !outline-none pl-3  font-semibold  "
       {...validationObj}
-   
+      onClick={() => !showEdit && toast.warn("Please click on the edit button to edit the fields.",{position : toast.POSITION.TOP_RIGHT})}
       />
       
       <div onClick={toggleEdit} className="border-2 border-l-black border-r-white border-y-white h-full px-1 flex justify-center items-center">

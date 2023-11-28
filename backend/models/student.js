@@ -10,15 +10,15 @@ const studentSchema = new mongoose.Schema({
     fathersName: { type: String , default : ""},
     mothersName: { type: String , default : ""},
     phone: { type: Number, required: true, unique: true },  
-    photo: {type : String, default : ""}
+    profilePicture: {type : String, default : ""}
   },
   
   educationalDetails: {  
-    // rollNumber: { type: Number, unique: true },
+    rollNumber: { type: Number, unique: true ,  default : 0 },
     collegeName: { type: String , default : ""},
-    degree: [{ type: String  , default : ""}],
+    degrees: [{ type: String  , default : ""}],
     cgpa: { type: Number , default : 0},
-    yearOfPassing: { type: Number , default : 0},
+    yearOfPassing: { type: Number , default : 0}, 
   },
 
   resume : {

@@ -43,9 +43,7 @@ app.get('/' , asyncHandler( async = ( req , res) => {
         }
         else{
             res.status(200).json({message : false , userType : ''})
-
         }
-        
     }
     catch(error){
         throw new Error("Internal Server Error")
