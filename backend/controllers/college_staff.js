@@ -15,7 +15,7 @@ const handleStaffSignUP = async (req, res) => {
         res.json({ msg: "Staff already exists" })
         return;
     }
-    else {
+    else { 
         const password = data.personalDetail.password;
         const passHash = await bcrypt.hash(password, 10)
         data.personalDetail.password = passHash

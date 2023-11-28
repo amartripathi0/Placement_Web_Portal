@@ -11,4 +11,4 @@ router
 .get('/getUserData' , isSignedIn("Student") , handleGetUserData)
 .post('/uploadResume' , uploadPdf.single("resume") , handleUploadResume)
 .post('/uploadProfilePicture' , isSignedIn("Student") ,  uploadImg.single("profilePicture") , handleUploadProfilePicture)
-module.exports = router;
+module.exports = router; 

@@ -11,9 +11,12 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
     <aside className={`h-screen bg-red-400 ${expanded ? " w-72" : "w-20 gap-10"} `}>
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
+        <NavLink to="/">
           <div   className={`overflow-hidden transition-all  rounded-md ${
               expanded ? "w-20 h-20" : "w-0 h-20 opacity-0"
             }`}>
+            
+           
           <img
             src={profileImgLink}
             className={`overflow-hidden transition-ease  object-cover h-full w-full rounded-md ${
@@ -23,6 +26,7 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
             alt=""
           />
           </div>
+          </NavLink>
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"

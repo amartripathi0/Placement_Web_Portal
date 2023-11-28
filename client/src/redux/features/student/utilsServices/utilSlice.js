@@ -38,11 +38,14 @@ const utilSlice = createSlice({
             state.isLoading = true
         })
         builder.addCase(uploadProfilePicture.fulfilled , (state,action) => {
+            console.log(action);
             state.isLoading = false
             state.isSuccess= true
             state.message= action.payload
         })
         builder.addCase(uploadProfilePicture.rejected , (state,action) => {
+
+
             state.isLoading = false
             state.isSuccess= false
             state.message= action.payload

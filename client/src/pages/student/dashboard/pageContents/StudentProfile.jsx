@@ -9,7 +9,7 @@ import {
   getUserData,
 } from "../../../../redux/features/student/auth/authSlice";
 import {
-  uploadProfilePicture
+  uploadProfilePicture , RESET_UTILS
 } from "../../../../redux/features/student/utilsServices/utilSlice";
 import { toast } from "react-toastify";
 const StudentProfile = () => {
@@ -17,6 +17,8 @@ const StudentProfile = () => {
     useSelector((state) => state.studentAuth);
   const globalAuth = useSelector((state) => state.globalAuth);
   const dispatch = useDispatch();
+
+  const studentUtil = useSelector(state => state.studentUtils)
   const form = useForm();
   const {
     handleSubmit,
@@ -40,11 +42,19 @@ const StudentProfile = () => {
         position : toast.POSITION.TOP_CENTER
       })
     }
+
+    if(studentUtil.isSuccess){
+      toast.success("Profile picture updated.",{
+        position : toast.POSITION.TOP_CENTER
+      })
+
+      dispatch(RESET_UTILS())
+    }
     // dispatch(RESET())
-  }, [globalAuth.isLoggedin]);
+  }, [globalAuth.isLoggedin , studentUtil.isSuccess]);
 
   useEffect(() => {
-    if (isLoggedIn && isSuccess) {
+    if (isLoggedIn && isSuccess) {  
       setValue("firstName", student?.personalDetail.firstName);
       setValue("lastName", student?.personalDetail.lastName);
       setValue("fathersName", student?.personalDetail.fathersName);
@@ -79,13 +89,14 @@ const StudentProfile = () => {
       dispatch(uploadProfilePicture(formdata))
       }
   }
+
   return (
     <div
       className={`h-full  flex flex-col gap-10 pt-40 pl-40 bg-blue-100 ${
-        isLoading && " opacity-70 bg-gray-400"
+        (isLoading || studentUtil.isLoading) && " opacity-70 bg-gray-400"
       }`}
     >
-      {isLoading && <LoadingPage height="[20vw]" width="full" />}
+      {(isLoading || studentUtil.isLoading) && <LoadingPage height="full" width="full" />}
 
      
 
