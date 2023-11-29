@@ -7,7 +7,7 @@ const staffSchema = new mongoose.Schema(
       lastName: { type: String, required: true },
       emailID: { type: String, required: true, unique: true },
       password: { type: String, required: true },
-      staffID: { type: Number, required: true, unique: true },
+      staffID: { type: Number, required: true, unique: true , default : 0 },
       phone: { type: Number, required: true, unique: true },
     },
     designation: {

@@ -10,6 +10,15 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
     <aside className={`h-screen bg-red-400 ${expanded ? " w-72" : "w-20"} `}>
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
+<<<<<<< HEAD
+=======
+        <NavLink to="/">
+          <div   className={`overflow-hidden transition-all  rounded-md ${
+              expanded ? "w-20 h-20" : "w-0 h-20 opacity-0"
+            }`}>
+            
+           
+>>>>>>> ef95a7b (Auth pages of college and company added)
           <img
             src="https://img.logoipsum.com/243.svg"
             className={`overflow-hidden transition-all ${
@@ -17,6 +26,11 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink}) 
             }`}
             alt=""
           />
+<<<<<<< HEAD
+=======
+          </div>
+          </NavLink>
+>>>>>>> ef95a7b (Auth pages of college and company added)
           <button
             onClick={() => setExpanded((curr) => !curr)}
             className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"

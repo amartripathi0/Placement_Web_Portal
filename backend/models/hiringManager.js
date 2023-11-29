@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const RecruiterSchema = new Schema({
     personalDetail : {
-        firstName: {  type: String,required: true  },
+        firstName: {  type: String,required: true   },
         lastName: {  type: String,required: true  },
         emailID : {type : String ,  required: true , unique : true},
         password:{type : String ,  required: true},
-        staffID : {type : Number  , required : true, unique : true},
+        staffID : {type : Number  , required : true, unique : true , default : 0},
         phone : {type : Nuimber , required:true , unique : true}
     },
 

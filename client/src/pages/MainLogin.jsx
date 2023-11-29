@@ -22,7 +22,7 @@ const MainLogin = () => {
       <SignUpCard
         imgSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/American_Broadcasting_Company_Logo.svg/767px-American_Broadcasting_Company_Logo.svg.png"
         btnLabel="Company Login"
-        redirectRoute = "comapny"
+        redirectRoute = "company"
       />
     </div>
   </div>

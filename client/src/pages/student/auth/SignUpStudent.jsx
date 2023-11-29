@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import {useForm} from 'react-hook-form'
 import InputField from '../../../Components/inputField/InputField'
 import PasswordInput from '../../../Components/inputField/PasswordInput'
-import { signup , RESET  } from '../../../redux/features/student/auth/authSlice'
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingPage from '../../LoadingPage'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { signup , RESET  } from '../../../redux/features/student/auth/authSlice'
 
 function SignUpStudent() {
     const form = useForm()

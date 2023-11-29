@@ -10,4 +10,9 @@ router
 .put('/updateProfileDetail' , isSignedIn("Student") , handleStudentProfileUpdate)
 .get('/getUserData' , isSignedIn("Student") , handleGetUserData)
 .post('/uploadResume' , uploadPdf.single("resume") , handleUploadResume)
+<<<<<<< HEAD
 module.exports = router;
+=======
+.post('/uploadProfilePicture' , isSignedIn("Student") ,  uploadImg.single("profilePicture") , handleUploadProfilePicture)
+module.exports = router; 
+>>>>>>> ef95a7b (Auth pages of college and company added)

@@ -6,6 +6,7 @@ import axios from "axios"
 const Resume = () => {
   const [file , setFile] = useState("")
 
+  
   function handleInputChange(e){
     setFile(e.target.files[0])
 }
@@ -16,7 +17,7 @@ const Resume = () => {
     const formdata = new FormData()
     formdata.append("resume" , file)
 
-    const config = {
+    const config = { 
       headers: {
         "Content-Type": "multipart/form-data"
       }

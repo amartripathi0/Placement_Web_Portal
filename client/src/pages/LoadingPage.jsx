@@ -13,4 +13,4 @@ const LoadingPage = ({height = "screen" , width = "screen"}) => {
   )
 }
 
-export default LoadingPage
+export default LoadingPage 

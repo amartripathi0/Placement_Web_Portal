@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react'
 import InputWithEdit from '../../../../Components/inputField/InputWithEdit'
 import {useForm} from 'react-hook-form'
@@ -16,8 +17,39 @@ const StudentProfile = () => {
     toast.success("Details Updated Succesfully",{
       position : toast.POSITION.TOP_RIGHT
     })
+=======
+import React, { useEffect, useState } from "react";
+import InputWithEdit from "../../../../Components/inputField/InputWithEdit";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingPage from "../../../LoadingPage";
+import {
+  updateProfileDetail,
+  RESET,
+  getUserData,
+} from "../../../../redux/features/student/auth/authSlice";
+import {
+  uploadProfilePicture , RESET_UTILS
+} from "../../../../redux/features/student/utilsServices/utilSlice";
+import { toast } from "react-toastify";
+const StudentProfile = () => {
+  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
+    useSelector((state) => state.studentAuth);
+  const globalAuth = useSelector((state) => state.globalAuth);
+  const dispatch = useDispatch();
+
+  const studentUtil = useSelector(state => state.studentUtils)
+  const form = useForm();
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors },
+  } = form;
+>>>>>>> ef95a7b (Auth pages of college and company added)
 
   }
+<<<<<<< HEAD
   useEffect(()=>{
     dispatch(getUserData())  
     toast.success("Data Fetched Succesfully",{
@@ -37,14 +69,61 @@ if(isLoggedIn && isSuccess){
 }
 
 
+=======
+  useEffect(() => {
+    if (globalAuth.isLoggedin) {
+      dispatch(getUserData());
+      // console.log("data fetched");
+      toast.success("Data Fetched Succesfully",{
+        position : toast.POSITION.TOP_CENTER
+      })
+    }
+
+    if(studentUtil.isSuccess){
+      toast.success("Profile picture updated.",{
+        position : toast.POSITION.TOP_CENTER
+      })
+
+      dispatch(RESET_UTILS())
+    }
+    // dispatch(RESET())
+  }, [globalAuth.isLoggedin , studentUtil.isSuccess]);
+
+  useEffect(() => {
+    if (isLoggedIn && isSuccess) {  
+      setValue("firstName", student?.personalDetail.firstName);
+      setValue("lastName", student?.personalDetail.lastName);
+      setValue("fathersName", student?.personalDetail.fathersName);
+      setValue("mothersName", student?.personalDetail.mothersName);
+      setValue("emailID", student?.personalDetail.emailID);
+      setValue("phone", student?.personalDetail.phone);
+    }
+  }, [student]);
+>>>>>>> ef95a7b (Auth pages of college and company added)
 
 
+<<<<<<< HEAD
   return (
     <div className={`h-full  flex flex-col gap-10 pt-40 pl-40 bg-blue-100 ${isLoading && " opacity-70 bg-gray-400"}`}>
        {isLoading &&  <LoadingPage height = "[20vw]" width= "full" />}
       
       <form action=""  onSubmit={handleSubmit(formSubmit)} noValidate >
       <div className='flex items-center gap-6 justify-between  w-[33vw] '>
+=======
+      const formdata = new FormData()
+      formdata.append("profilePicture" , profilePicture)
+      dispatch(uploadProfilePicture(formdata))
+      }
+  }
+
+  return (
+    <div
+      className={`h-full  flex flex-col gap-10 pt-40 pl-40 bg-blue-100 ${
+        (isLoading || studentUtil.isLoading) && " opacity-70 bg-gray-400"
+      }`}
+    >
+      {(isLoading || studentUtil.isLoading) && <LoadingPage height="full" width="full" />}
+>>>>>>> ef95a7b (Auth pages of college and company added)
 
 
       <h2 className='text-xl'>First Name</h2>

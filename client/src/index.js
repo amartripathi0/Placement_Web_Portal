@@ -29,6 +29,8 @@ import SignUpStudent from "./pages/student/auth/SignUpStudent";
 import LoginCollege from "./pages/college/auth/LoginCollege";
 import LoginCompany from "./pages/company/auth/LoginCompany";
 import LoginStudent from "./pages/student/auth/LoginStudent";
+import SignupCollege from "./pages/college/auth/SignupCollege";
+import SignupCompany from "./pages/company/auth/SignupCompany";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,9 +47,11 @@ const router = createBrowserRouter(
         <Route path="/signin" element={<MainLogin />} />
         <Route path="/signup" element={<MainSignUp />} />
         <Route path="/signup/student" element={<SignUpStudent />} />
+        <Route path="/signup/college-staff" element={<SignupCollege />} />
+        <Route path="/signup/company" element={<SignupCompany />} />
 
         <Route path="/signin/student" element={<LoginStudent />} />
-        <Route path="/signin/college" element={<LoginCollege />} />
+        <Route path="/signin/college-staff" element={<LoginCollege />} />
         <Route path="/signin/company" element={<LoginCompany />} />
         
 
